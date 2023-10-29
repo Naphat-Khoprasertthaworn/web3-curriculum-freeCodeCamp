@@ -1,0 +1,14 @@
+{
+  "Me": {
+    "publicKey": "04e7e33f0e1e72bbf31861851ad79f5c617bf6e33ea84c8946da19f2370d641bd1f3ef03604867f38bed3b7ab83e0711ff",
+    "privateKey": "2cc4bbfcdc8399fad96cd0daac5ba1f5dda5c16f544f667f"
+  },
+  "You": {
+    "publicKey": "04501cd76cbbf41c5a086206834309c37923df962c03b364c75c2ae0b8a78390723ac1dbdb94efe4fd8550064a3c724073",
+    "privateKey": "18c5c70fdb47180c0926ecbff609f57ef406ca7fd5f6edd4"
+  },
+  "Lemoch": {
+    "publicKey": "042f218807c61022159f07cfb5970d2ac47f489e619e1788974d2e5060b503b13ec0fa22769e1e0a8e2a250a3fe8b00a63",
+    "privateKey": "dda13efa5b07a539f58e7ad57c79e736a921c64492cfaff2"
+  }
+}
