@@ -1,0 +1,116 @@
+[
+  {
+    "hash": 0,
+    "previousHash": null
+  },
+  {
+    "hash": "00367ecee51bfd10e8aa12b0225709e3c5d2cf43b5affa2f2ae54e7105b56f1c",
+    "previousHash": 0,
+    "nonce": 655,
+    "transactions": [],
+    "smartContracts": []
+  },
+  {
+    "hash": "006b8b2756c716be471eb0840309273c7e2c9fddd86e4a907743f726f1643e27",
+    "previousHash": "00367ecee51bfd10e8aa12b0225709e3c5d2cf43b5affa2f2ae54e7105b56f1c",
+    "nonce": 42,
+    "transactions": [
+      {
+        "fromAddress": null,
+        "toAddress": "041608a1e5bc12c505bb60b52bf64ca40f816f14acc9e31bfa21c6c7ba435a215a8f54ba49ce767b950cfdfea2efe261a9",
+        "amount": 50
+      }
+    ],
+    "smartContracts": [
+      {
+        "address": "04941cbaf1c374258b757d997e36331c6e6c47023afd6070cf8f2ea2c7d8526b9f49ee9c8c248fe71dc4544aa848ef5324",
+        "creatorAddress": "047f18310ca11477a0ccd328df42d7ff9cd068ac6816d9c76535b0fe1b7b45ab7312ff6167964c050e66c6db00642c5492",
+        "functions": {
+          "get-description.js": "const contractState = JSON.parse(process.env.CONTRACT_STATE);\n\nconsole.log(`Here's the description of the fundraising contract: ${contractState.description}`)",
+          "on-new-block.js": "const { addTransaction, updateContractState, getBlockchain, getTransactions } = (await import('./blockchain-helpers.js'));\n\nconst contractState = JSON.parse(process.env.CONTRACT_STATE);\nconst contractAddress = process.env.CONTRACT_ADDRESS;\nconst privateKey = process.env.PRIVATE_KEY;\nconst creatorAddress = process.env.CREATOR_ADDRESS;\nconst blockchainLength = process.env.BLOCKCHAIN_LENGTH;\n// Add your code below\n\n// console.log(contractState,\n//     contractAddress,\n//     privateKey,\n//     creatorAddress,\n//     blockchainLength)\n\nif(blockchainLength >= 7){\n    const blockchain = getBlockchain()\n    const transaction = getTransactions()\n\n    for (let i = 1; i < blockchain.length; i++) {\n        const { hash, previousHash, nonce, transactions, smartContracts } = blockchain[i];\n        for (let i = 1; i < transactions.length; i++) {\n            const { fromAddress,toAddress,amount } = transactions[i];\n            if (toAddress === contractAddress){\n                addTransaction( privateKey,fromAddress,amount )\n            }\n        }\n    }\n\n    for (let i = 1; i < transaction.length; i++) {\n        const { fromAddress,toAddress,amount } = transaction[i];\n        if (toAddress === contractAddress){\n            addTransaction( privateKey,fromAddress,amount )\n        }\n    }\n\n\n    //let state = contractState\n    contractState.status = \"closed\"\n    updateContractState(contractAddress,contractState)\n    console.log(\"close this smart contract\")\n}\n",
+          "on-transaction.js": "const { addTransaction, updateContractState } = (await import('./blockchain-helpers.js'));\n\nconst contractState = JSON.parse(process.env.CONTRACT_STATE);\nconst contractAddress = process.env.CONTRACT_ADDRESS;\nconst privateKey = process.env.PRIVATE_KEY; // contract private key\nconst creatorAddress = process.env.CREATOR_ADDRESS; // target public key\nconst transaction = JSON.parse(process.env.TRANSACTION);\n// Add your code below\n\n// console.log(contractState,\n//     contractAddress,\n//     privateKey,\n//     creatorAddress,\n//     blockchainLength)\n\nconst funds = getAddressBalance(contractAddress)\n\n// console.log(funds)\n\nif ( funds >= 150 ){\n    addTransaction(privateKey,creatorAddress,funds)\n\n    contractState.status = \"closed\"\n    contractState.description = \"Smart contract to raise funds for my start up.\"\n    updateContractState(contractAddress,contractState)\n\n}\n",
+          "other-files.js": "const { addTransaction, updateContractState } = (await import('./blockchain-helpers.js'));\n\nconst contractState = JSON.parse(process.env.CONTRACT_STATE);\nconst contractAddress = process.env.CONTRACT_ADDRESS;\nconst privateKey = process.env.PRIVATE_KEY;\nconst creatorAddress = process.env.CREATOR_ADDRESS;\nconst blockchainLength = process.env.BLOCKCHAIN_LENGTH;\nconst args = JSON.parse(process.env.ARGS);\n",
+          "update-description.js": "const { updateContractState } = (await import('./blockchain-helpers.js'));\n\nconst contractState = JSON.parse(process.env.CONTRACT_STATE);\nconst contractAddress = process.env.CONTRACT_ADDRESS;\nconst args = JSON.parse(process.env.ARGS);\n\ncontractState.description = args[0];\n\nupdateContractState(contractAddress, contractState);"
+        },
+        "state": {
+          "status": "open",
+          "description": "Smart contract"
+        }
+      }
+    ]
+  },
+  {
+    "hash": "00cebe6911933e74f5740378de94fc6560da1ac3e6591a59918491975e6b5fa3",
+    "previousHash": "006b8b2756c716be471eb0840309273c7e2c9fddd86e4a907743f726f1643e27",
+    "nonce": 8,
+    "transactions": [
+      {
+        "fromAddress": null,
+        "toAddress": "041608a1e5bc12c505bb60b52bf64ca40f816f14acc9e31bfa21c6c7ba435a215a8f54ba49ce767b950cfdfea2efe261a9",
+        "amount": 50
+      }
+    ],
+    "smartContracts": []
+  },
+  {
+    "hash": "00abb11e822cb14d202525b3b95176fbb29994b9c45198d91e274f56ae4cf428",
+    "previousHash": "00cebe6911933e74f5740378de94fc6560da1ac3e6591a59918491975e6b5fa3",
+    "nonce": 687,
+    "transactions": [
+      {
+        "fromAddress": null,
+        "toAddress": "047f18310ca11477a0ccd328df42d7ff9cd068ac6816d9c76535b0fe1b7b45ab7312ff6167964c050e66c6db00642c5492",
+        "amount": 50
+      }
+    ],
+    "smartContracts": []
+  },
+  {
+    "hash": "001de35195621b386f7859e065a5c7a53eff8f7f1eab9bc07abcacdeeffde0a1",
+    "previousHash": "00abb11e822cb14d202525b3b95176fbb29994b9c45198d91e274f56ae4cf428",
+    "nonce": 172,
+    "transactions": [
+      {
+        "fromAddress": null,
+        "toAddress": "041608a1e5bc12c505bb60b52bf64ca40f816f14acc9e31bfa21c6c7ba435a215a8f54ba49ce767b950cfdfea2efe261a9",
+        "amount": 50
+      }
+    ],
+    "smartContracts": []
+  },
+  {
+    "hash": "0007ecb543d795accbdcd123a219a291b2e25a775aee04b01505e7aef3dcd710",
+    "previousHash": "001de35195621b386f7859e065a5c7a53eff8f7f1eab9bc07abcacdeeffde0a1",
+    "nonce": 567,
+    "transactions": [
+      {
+        "fromAddress": null,
+        "toAddress": "0412bb6129d866a633aa62270e84be8630ebf803a64f6879a5ac08f12cde2aeca2eb272481fcc742d568aad80e44ba68c5",
+        "amount": 50
+      },
+      {
+        "fromAddress": "041608a1e5bc12c505bb60b52bf64ca40f816f14acc9e31bfa21c6c7ba435a215a8f54ba49ce767b950cfdfea2efe261a9",
+        "toAddress": "04941cbaf1c374258b757d997e36331c6e6c47023afd6070cf8f2ea2c7d8526b9f49ee9c8c248fe71dc4544aa848ef5324",
+        "amount": 150,
+        "hash": "f937065d8d61eb39a94cccedd16f4b20bef84e7ba569a9d6e924c0bd5704fb57",
+        "signature": "3035021832c73705136e3bc98cf50b64e3e71b357fcde5fe2a8cb4d50219008c49906bb0cf7e139be48afa46623798a96360bcf68d500d"
+      },
+      {
+        "fromAddress": "04941cbaf1c374258b757d997e36331c6e6c47023afd6070cf8f2ea2c7d8526b9f49ee9c8c248fe71dc4544aa848ef5324",
+        "toAddress": "047f18310ca11477a0ccd328df42d7ff9cd068ac6816d9c76535b0fe1b7b45ab7312ff6167964c050e66c6db00642c5492",
+        "amount": 150,
+        "hash": "a9694699961554029a1ed71bc7e33428a79ceebc5e07f6a6f040a4a9af7ca739",
+        "signature": "303402186434bf2d4771aa1ac37ed068cadb4bc79062083cb79034bb021827d214650301ed4c84dd90645461fd85a59571e3a3c8c283"
+      }
+    ],
+    "smartContracts": [
+      {
+        "address": "04941cbaf1c374258b757d997e36331c6e6c47023afd6070cf8f2ea2c7d8526b9f49ee9c8c248fe71dc4544aa848ef5324",
+        "state": {
+          "status": "closed",
+          "description": "Smart contract to raise funds for my start up."
+        }
+      }
+    ]
+  }
+]
